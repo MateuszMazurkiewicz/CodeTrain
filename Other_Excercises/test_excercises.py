@@ -81,6 +81,9 @@ class VariousExcercisesTester(unittest.TestCase):
     def test_bridge_proble(self):
         self.assertTrue(vx.BridgeProblemSolution().solve() < 19) 
 
+    def test_fibonacci(self):
+        self.assertEqual(vx.fibonacci(6), 8)
+
 if __name__ == '__main__':
     unittest.main()
 

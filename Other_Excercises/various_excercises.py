@@ -313,3 +313,16 @@ class BridgeProblemSolution():
     def solve(self):
         people = [{'side':'A', 'time':5}, {'side':'A', 'time':10}, {'side':'A', 'time':2}, {'side':'A', 'time':1}]
         return self.move(people, 'A', 0)
+
+# Implement function returning n-th fibonacci
+
+def fibonacci(n):
+    previous_value = 0
+    next_value = 1
+    for _ in range(n):
+        tmp = next_value
+        next_value += previous_value 
+        previous_value = tmp
+
+    return previous_value
+
