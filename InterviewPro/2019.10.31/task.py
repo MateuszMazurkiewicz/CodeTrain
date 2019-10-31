@@ -11,6 +11,7 @@ def distance(s1, s2):
          
 def find_max_matching(s1, s2):
     substrings_list = []
+    tmp_results = dict()
 
     max_matching = 0
 
@@ -20,15 +21,24 @@ def find_max_matching(s1, s2):
                 substrings_list.insert(0, [(index1, index2), 1])
                 max_matching = 1
 
+    counter = 0
     while len(substrings_list) > 0:
         tmp = substrings_list.pop()
+        counter +=1
+        
         for index1 in range(tmp[0][0] + 1, len(s1)):
             for index2 in range(tmp[0][1] + 1,len(s2)):
                 if s1[index1] == s2[index2]:
-                    substrings_list.insert(0, [(index1, index2), tmp[1] + 1])
+                    pair = (index1, index2)
+                    if pair not in tmp_results:
+                        tmp_results[pair] = tmp[1] + 1
+                    elif tmp_results[pair] >= tmp[1] + 1:
+                        continue
+
+                    substrings_list.insert(0, [pair, tmp[1] + 1])
                     if tmp[1] + 1 > max_matching:
                         max_matching = tmp[1] + 1 
-
+    print(counter)
     return max_matching
 
 
@@ -37,3 +47,6 @@ print(find_max_matching('biting', 'sitting'))
 
 print(distance('biting', 'sitting'))
 # 2
+
+print(distance('kitten', 'sitting'))
+# 3
