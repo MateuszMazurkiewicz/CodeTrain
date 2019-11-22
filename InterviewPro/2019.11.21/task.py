@@ -20,9 +20,7 @@ class Node(object):
 def merge(lists):
     res = None
     current = None
-    while True:
-        if len(lists) == 0:
-            break        
+    while len(lists) > 0:
 
         index = 0
         minimal = lists[0].val
