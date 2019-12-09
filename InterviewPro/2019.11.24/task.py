@@ -21,10 +21,30 @@ Here's a starting point:
 '''
 
 class Solution:
-  def buddyStrings(self, A, B):
-    # Fill this in.
+    def buddyStrings(self, A, B):
+        if len(A) != len(B):
+            return False
 
-print Solution().buddyStrings('aaaaaaabc', 'aaaaaaacb')
+        a_letters = []
+        b_letters = []
+        counter = 0
+
+        for index in range(len(A)):
+            if counter > 2:
+                  return False
+            if A[index] != B[index]:
+                a_letters.append(A[index])
+                b_letters.append(B[index])
+                counter += 1
+
+        if a_letters[0] == b_letters[1] and a_letters[1] == b_letters[0]:
+            return True
+
+        return False
+
+
+
+print(Solution().buddyStrings('aaaaaaabc', 'aaaaaaacb'))
 # True
-print Solution().buddyStrings('aaaaaabbc', 'aaaaaaacb')
+print(Solution().buddyStrings('aaaaaabbc', 'aaaaaaacb'))
 # False
