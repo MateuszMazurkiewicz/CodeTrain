@@ -7,11 +7,11 @@ Inorder: [d, b, e, a, f, c, g]
 
 The tree that should be constructed from these traversals is:
 
-    a
-   / \
-  b   c
+        a
+     / \
+    b     c
  / \ / \
-d  e f  g
+d    e f    g
 
 Here's a start:
 '''
@@ -19,30 +19,51 @@ Here's a start:
 from collections import deque
 
 class Node(object):
-  def __init__(self, val):
-    self.val = val
-    self.left = None
-    self.right = None
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
 
-  def __str__(self):
-    q = deque()
-    q.append(self)
-    result = ''
-    while len(q):
-      n = q.popleft()
-      result += n.val
-      if n.left:
-        q.append(n.left)
-      if n.right:
-        q.append(n.right)
+    def __str__(self):
+        q = deque()
+        q.append(self)
+        result = ''
+        while len(q):
+            n = q.popleft()
+            result += n.val
+            if n.left:
+                q.append(n.left)
+            if n.right:
+                q.append(n.right)
 
-    return result
+        return result
 
+def create_node(preorder, inorder):
+    if len(preorder) == 0:
+        return None
+    
+    value = preorder[0]
+    node = Node(value)
+    value_index = inorder.index(value)
+
+    left_inorder = inorder[:value_index]
+    right_inorder = inorder[value_index + 1:]
+
+    left_preorder = [x for x in preorder if x in left_inorder]
+    right_preorder = [x for x in preorder if x in right_inorder]
+
+    node.left = create_node(left_preorder, left_inorder)
+    node.right = create_node(right_preorder, right_inorder)
+
+    return node
+    
 
 def reconstruct(preorder, inorder):
-  # Fill this in.
+    # Fill this in.
+    root = create_node(preorder, inorder)
+    return root
 
 tree = reconstruct(['a', 'b', 'd', 'e', 'c', 'f', 'g'],
-                   ['d', 'b', 'e', 'a', 'f', 'c', 'g'])
-print tree
+                                     ['d', 'b', 'e', 'a', 'f', 'c', 'g'])
+print(tree)
 # abcdefg
